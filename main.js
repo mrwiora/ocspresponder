@@ -13,7 +13,11 @@ let config = {
   listenport: '',
   loglevel: 'info',
   issuercert: '',
-  issuerkey: ''
+  issuercertdata: '',
+  issuerkey: '',
+  issuerkeydata: '',
+  rootcert: '',
+  rootcertdata: ''
 }
 let configjson;
 
@@ -91,8 +95,11 @@ function callRest(url) {
 if(config.issuercert.includes("https://")){
   logger.info("reading issuer certificate from network")
   try {
-    var cert = await callRest(config.issuercert);
-    var key = await callRest(config.issuerkey);
+    config.issuercertdata = await callRest(config.issuercert);
+    config.issuerkeydata = await callRest(config.issuerkey);
+    if(typeof configjson.rootcert !== 'undefined' || configjson.rootcert !== ""){
+      config.rootcertdata = await callRest(config.rootcert);
+    }
   } catch(e) {
     logger.error(`couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json) \n` + e)
     exit(1)
@@ -100,8 +107,11 @@ if(config.issuercert.includes("https://")){
 } else {
   logger.info("reading issuer certificate from disk")
   try {
-    var cert = fs.readFileSync(config.issuercert).toString();
-    var key = fs.readFileSync(config.issuerkey).toString();
+    config.issuercertdata = fs.readFileSync(config.issuercert).toString();
+    config.issuerkeydata = fs.readFileSync(config.issuerkey).toString();
+    if(typeof configjson.rootcert !== 'undefined' || configjson.rootcert !== ""){
+      config.rootcertdata = fs.readFileSync(config.rootcert).toString();
+    }
   } catch(e) {
     logger.error(`couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json)`)
     exit(1)
@@ -110,8 +120,7 @@ if(config.issuercert.includes("https://")){
 
 // try to start application
 var server = ocsp.Server.create({
-  cert: cert,
-  key: key
+  configobj: config
 });
 server.addCert(43, 'good');
 server.addCert(44, 'revoked', {
