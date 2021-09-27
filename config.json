@@ -2,6 +2,10 @@
     "listenip": "0.0.0.0",
     "listenport": "80",
     "loglevel": "debug",
-    "issuercert": "issuer-cert.pem",
-    "issuerkey": "issuer-key.pem"
+    "issuercert": "https://pebble:15000/intermediates/0",
+    "issuercert.fs": "issuer-cert.pem",
+    "issuerkey": "https://pebble:15000/intermediate-keys/0",
+    "issuerkey.fs": "issuer-key.pem",
+    "rootcert": "https://pebble:15000/roots/0",
+    "rootcert.fs": "root-cert.pem"
 }
