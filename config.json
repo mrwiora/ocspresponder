@@ -1,0 +1,7 @@
+{
+    "listenip": "0.0.0.0",
+    "listenport": "80",
+    "loglevel": "debug",
+    "issuercert": "issuer-cert.pem",
+    "issuerkey": "issuer-key.pem"
+}
