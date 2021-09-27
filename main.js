@@ -97,7 +97,7 @@ if(config.issuercert.includes("https://")){
   try {
     config.issuercertdata = await callRest(config.issuercert);
     config.issuerkeydata = await callRest(config.issuerkey);
-    if(typeof configjson.rootcert !== 'undefined' || configjson.rootcert !== ""){
+    if(typeof configjson.rootcert !== 'undefined' && configjson.rootcert !== ""){
       config.rootcertdata = await callRest(config.rootcert);
     }
   } catch(e) {
@@ -109,7 +109,7 @@ if(config.issuercert.includes("https://")){
   try {
     config.issuercertdata = fs.readFileSync(config.issuercert).toString();
     config.issuerkeydata = fs.readFileSync(config.issuerkey).toString();
-    if(typeof configjson.rootcert !== 'undefined' || configjson.rootcert !== ""){
+    if(typeof configjson.rootcert !== 'undefined' && configjson.rootcert !== ""){
       config.rootcertdata = fs.readFileSync(config.rootcert).toString();
     }
   } catch(e) {
