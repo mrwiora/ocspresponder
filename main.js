@@ -35,10 +35,10 @@ try {
   configjson = JSON.parse(configraw);
   // loglevel handling
   if (typeof configjson.loglevel !== 'undefined' && configjson.loglevel !== "") {
-    if (configjson.loglevel === 'debug' || configjson.loglevel === 'info' || configjson.loglevel === 'warn' || configjson.loglevel === 'error') {
+    if (configjson.loglevel === 'trace' || configjson.loglevel === 'debug' || configjson.loglevel === 'info' || configjson.loglevel === 'warn' || configjson.loglevel === 'error') {
       logger.level = configjson.loglevel
     } else {
-      logger.error(`loglevel config misconfigured - allowed values: debug|info|warn|error`)
+      logger.error(`loglevel config misconfigured - allowed values: trace|debug|info|warn|error`)
       exit(1)
     }
   }
@@ -122,11 +122,16 @@ if(config.issuercert.includes("https://")){
 var server = ocsp.Server.create({
   configobj: config
 });
-server.addCert(43, 'good');
-server.addCert(44, 'revoked', {
-  revocationTime: new Date(),
-  revocationReason: 'cACompromise'
-});
+
+if(config.certdb === "memory") {
+  logger.debug(`dbtype is memory - loaded certs from code`)
+  server.addCert(43, 'good');
+  server.addCert(44, 'revoked', {
+    revocationTime: new Date(),
+    revocationReason: 'cACompromise'
+  });
+}
+
 server.listen(config.listenport, config.listenip, () => {
   logger.info(`Server running at http://${config.listenip}:${config.listenport}/`);
 });
