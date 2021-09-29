@@ -2,10 +2,16 @@
     "listenip": "0.0.0.0",
     "listenport": "80",
     "loglevel": "debug",
-    "issuercert": "https://pebble:15000/intermediates/0",
-    "issuercert.fs": "issuer-cert.pem",
-    "issuerkey": "https://pebble:15000/intermediate-keys/0",
-    "issuerkey.fs": "issuer-key.pem",
-    "rootcert": "https://pebble:15000/roots/0",
-    "rootcert.fs": "root-cert.pem"
+    "issuercert": "test/fixtures/ocsp_issuer-cert.pem",
+    "issuercert.ignored.pebble": "https://pebble:15000/intermediates/0",
+    "issuercert.ignored.stepca": "step-issuing-cert.pem",
+    "issuerkey": "test/fixtures/ocsp_issuer-key.pem",
+    "issuerkey.ignored.pebble": "https://pebble:15000/intermediate-keys/0",
+    "issuerkey.ignored.stepca": "step-issuing-key.pem",
+    "rootcert": "",
+    "rootcert.ignored.pebble": "https://pebble:15000/roots/0",
+    "rootcert.ignored.stepca": "step-root-cert.pem",
+    "certdb": "memory",
+    "certdb.ignored.stepca": "mysql://stepcauser:pass@dbhost/stepcadbname",
+    "certdb.ignored.pebble": "https://pebble:15000/cert-status-by-serial/"
 }
