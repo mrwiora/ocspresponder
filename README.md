@@ -5,7 +5,7 @@ X.509 Internet Public Key Infrastructure
 
 This server enables responding to any client's request regarding the current status of the certificate. It is an alternative to the complete CRL (Certificate Revocation List), which can become very large as more and more certificates are revoked by the CA. The basic idea is that the client requests information on whether a given certificate is still valid or revoked. In case the serial number of the certificate is unknown to the CA, it will respond with an unknown status.
 
-This project is using the ocsp library (https://github.com/mwiora/ocsp).
+This project is using the ocsp library (https://github.com/mrwiora/ocsp).
 
 Requirements:
 - posession of the intermediate certificate
