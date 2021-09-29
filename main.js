@@ -38,7 +38,7 @@ try {
     if (configjson.loglevel === 'trace' || configjson.loglevel === 'debug' || configjson.loglevel === 'info' || configjson.loglevel === 'warn' || configjson.loglevel === 'error') {
       logger.level = configjson.loglevel
     } else {
-      logger.error(`loglevel config misconfigured - allowed values: trace|debug|info|warn|error`)
+      logger.error(`Loglevel config misconfigured - allowed values: trace|debug|info|warn|error`)
       exit(1)
     }
   }
@@ -46,21 +46,20 @@ try {
   logger.debug(`config read: ` + JSON.stringify(configjson, null, 4))
   // config listen handling
   if (typeof configjson.listenip === 'undefined' || typeof configjson.listenport === 'undefined') {
-    logger.error(`listen config misconfigured`)
+    logger.error(`Listen config misconfigured`)
     exit(1)
   }
   // config issuercert handling
   if (typeof configjson.issuercert === 'undefined' || typeof configjson.issuerkey === 'undefined' || configjson.issuercert === "" || configjson.issuercert === "") {
-    logger.error(`no issuer-cert/issuer-key parameters defined`)
+    logger.error(`No issuer-cert/issuer-key parameters defined`)
     exit(1)
   }
   // config listen handling
   config = configjson;
 } catch(e) {
-  logger.error(`couldn't read config.json, check existence and consistence (jq)`)
+  logger.error(`Couldn't read config.json, check existence and consistence (jq)`)
   exit(1)
 }
-
 
 function callRest(url) {
   return new Promise ((resolve, reject) => {
@@ -93,7 +92,7 @@ function callRest(url) {
 
 
 if(config.issuercert.includes("https://")){
-  logger.info("reading issuer certificate from network")
+  logger.info("Reading issuer certificate from network")
   try {
     config.issuercertdata = await callRest(config.issuercert);
     config.issuerkeydata = await callRest(config.issuerkey);
@@ -101,11 +100,11 @@ if(config.issuercert.includes("https://")){
       config.rootcertdata = await callRest(config.rootcert);
     }
   } catch(e) {
-    logger.error(`couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json) \n` + e)
+    logger.error(`Couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json) \n` + e)
     exit(1)
   }
 } else {
-  logger.info("reading issuer certificate from disk")
+  logger.info("Reading issuer certificate from disk")
   try {
     config.issuercertdata = fs.readFileSync(config.issuercert).toString();
     config.issuerkeydata = fs.readFileSync(config.issuerkey).toString();
@@ -113,7 +112,7 @@ if(config.issuercert.includes("https://")){
       config.rootcertdata = fs.readFileSync(config.rootcert).toString();
     }
   } catch(e) {
-    logger.error(`couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json)`)
+    logger.error(`Couldn't read cert: \"` + config.issuercert + `\" (defined in config.json) or key: \"` + config.issuerkey + `\" (defined in config.json)`)
     exit(1)
   }
 }
@@ -124,7 +123,7 @@ var server = ocsp.Server.create({
 });
 
 if(config.certdb === "memory") {
-  logger.debug(`dbtype is memory - loaded certs from code`)
+  logger.debug(`CERTDB is memory - loaded certs from code`)
   server.addCert(43, 'good');
   server.addCert(44, 'revoked', {
     revocationTime: new Date(),
