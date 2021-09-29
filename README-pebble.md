@@ -2,6 +2,12 @@
 
 Tested with version [v.2.3.1](https://github.com/letsencrypt/pebble/releases/tag/v2.3.1)
 
+Steps required:
+- Setup Pebble CA with the required configuration change
+- Request a Certificate (`certbot certonly -a manual -d test1.domain.tld --no-verify-ssl --server https://127.0.0.1:16000/dir --preferred-challenges dns`)
+- Request another Certificate (`certbot certonly -a manual -d test2.domain.tld --no-verify-ssl --server https://127.0.0.1:16000/dir --preferred-challenges dns`)
+- Revoke the second one (`certbot revoke --cert-path /etc/letsencrypt/live/test2.domain.tld/fullchain.pem --reason keycompromise --no-verify-ssl --server https://172.31.0.161:14000/dir`)
+
 Necessary configuration change:
 ```bash
 pebble-config.json # add ocspResponderURL, so in future certificates this information will be added
