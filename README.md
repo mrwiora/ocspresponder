@@ -19,6 +19,14 @@ Following providers are currently supported:
 - [pebble](README-pebble.md) (reference to the rest api directory)
 - [stepca](README-stepca.md) (reference to the mysql database)
 
+Quickstart:
+```
+git clone https://github.com/mrwiora/ocspresponder.git
+cd ocspresponder
+# adjust config.json if necessary 
+docker-compose up -d
+```
+
 ToDo
 ---------------
 - [ ] reimplementation with fastify

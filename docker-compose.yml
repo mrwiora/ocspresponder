@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ocspresponder:
+    image: mrwiora/ocspresponder:v0.0.1 
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - "./config.json:/usr/app/config.json"
