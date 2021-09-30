@@ -26,6 +26,7 @@ cd ocspresponder
 # adjust config.json if necessary 
 docker-compose up -d
 ```
+you can now follow the test steps provided in [openssl](README-openssl.md)
 
 ToDo
 ---------------
