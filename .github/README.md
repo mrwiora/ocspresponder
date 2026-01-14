@@ -33,9 +33,14 @@ To add these secrets:
 
 3. **Pull the image:**
    ```bash
-   docker pull docker.io/mrwiora/ocspresponder:latest
+   docker pull docker.io/<your-username>/<repository-name>:latest
    # or a specific version
-   docker pull docker.io/mrwiora/ocspresponder:1.0.0
+   docker pull docker.io/<your-username>/<repository-name>:1.0.0
+   ```
+   
+   For this repository specifically:
+   ```bash
+   docker pull docker.io/mrwiora/ocspresponder:latest
    ```
 
 ### Tag Format
