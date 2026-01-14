@@ -1,4 +1,4 @@
-FROM node:lts-buster-slim
+FROM node:lts-slim
 WORKDIR /usr/app
 COPY . ./
 RUN apt update -y && apt upgrade -y && apt install git -y && apt clean all
